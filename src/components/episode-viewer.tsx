@@ -55,7 +55,7 @@ function EpisodeViewerInner({ data }: { data: any }) {
   const isLoading = !videosReady || !chartsReady;
 
   const router = useRouter();
-  const { t } = router.query; // Get time parameter from query
+  const { t, org, dataset } = router.query; // Get time parameter and route params from query
 
   // State
   // Use context for time sync
@@ -140,7 +140,7 @@ function EpisodeViewerInner({ data }: { data: any }) {
         nextEpisodeId >= lowestEpisodeId &&
         nextEpisodeId <= highestEpisodeId
       ) {
-        router.push(`./episode_${nextEpisodeId}`);
+        router.push(`/${org}/${dataset}/episode_${nextEpisodeId}`);
       }
     }
   };
