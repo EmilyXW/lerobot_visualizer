@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface SidebarProps {
@@ -20,6 +21,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   prevPage,
   nextPage,
 }) => {
+  const router = useRouter();
+  const { org, dataset } = router.query;
   const [sidebarVisible, setSidebarVisible] = React.useState(true);
   const toggleSidebar = () => setSidebarVisible((prev) => !prev);
 
@@ -64,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             {paginatedEpisodes.map((episode) => (
               <li key={episode} className="mt-0.5 font-mono text-sm">
                 <Link
-                  href={`./episode_${episode}`}
+                  href={`/${org}/${dataset}/episode_${episode}`}
                   className={`underline ${episode === episodeId ? "-ml-1 font-bold" : ""}`}
                 >
                   Episode {episode}
