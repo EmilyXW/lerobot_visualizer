@@ -1,6 +1,7 @@
 import EpisodeViewer from "../../../components/episode-viewer";
 import { getEpisodeDataSafe } from "../../../utils/fetch-data";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 interface EpisodePageProps {
   data: any;
@@ -11,7 +12,14 @@ interface EpisodePageProps {
 }
 
 export default function EpisodePage({ data, error, org, dataset, episode }: EpisodePageProps) {
-  return <EpisodeViewer data={data} error={error} />;
+  return (
+    <>
+      <Head>
+        <title>{`${org}/${dataset}/${episode} - LeRobot Dataset Visualizer`}</title>
+      </Head>
+      <EpisodeViewer data={data} error={error} />
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -23,8 +31,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   
   return {
     props: {
-      data,
-      error,
+      data: data || null,
+      error: error || null,
       org,
       dataset,
       episode,
